@@ -1,0 +1,12 @@
+#Ignore .sln file
+*.sln
+
+#Ignore .vcxproj files
+*.vcxproj
+*.vcxproj.*
+
+#Ignore .vs folder
+.vs/
+
+#Ignore out folder
+out/
