@@ -2,7 +2,7 @@
 
 #include <cstddef>
 
-inline constexpr std::size_t maxLineSize = 512;
+inline constexpr std::size_t kMaxLineSize = 512;
 
 enum class InputStreamType {
 	NoInputStream,
