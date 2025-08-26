@@ -13,7 +13,7 @@ public:
 
 private:
 	std::string prompt_ = "$";
-	Reader* myReader;
-	Translator* myTranslator;
-	Writer* myWriter;
+	Reader* myReader_;
+	Translator* myTranslator_;
+	Writer* myWriter_;
 };

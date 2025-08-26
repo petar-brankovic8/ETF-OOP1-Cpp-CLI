@@ -1,7 +1,11 @@
 #include "reader.hpp"
+#include <iostream>
 #include <string>
 
-std::string Reader::readLine() {
-	// Add logic
-	return "";
+using namespace std;
+
+string Reader::readLine() {
+	string input;
+	getline(cin, input);
+	return input;
 }
