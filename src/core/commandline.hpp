@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../utils/translator.hpp"
+#include "../commands/command.hpp"
 #include <string>
+#include <vector>
 
 class CommandLine {
 public:
@@ -11,4 +13,5 @@ public:
 
 private:
 	Translator* myTranslator_;
+	std::vector<Command*> commands;
 };
