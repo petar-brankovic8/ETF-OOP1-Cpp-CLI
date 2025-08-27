@@ -1,10 +1,10 @@
 #include "translator.hpp"
-#include "translator.hpp"
 #include "../commands/command.hpp"
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <cctype>
+#include <iostream>
 
 using namespace std;
 using namespace commands;
@@ -37,6 +37,8 @@ vector<string> Translator::parsePipelines(const string& lineString) {
 Command* Translator::createCommand(const string& commandString) {
 	vector<string> tokens = parseTokens(commandString);
 
+	if (tokens.empty())
+		return nullptr;
 	if (commandCreateMap.count(tokens[0]) == 0)
 		return nullptr; // Add throw exception logic
 	Command* command = commandCreateMap[tokens[0]]();
@@ -47,13 +49,18 @@ Command* Translator::createCommand(const string& commandString) {
 
 vector<string> Translator::parseTokens(const string& commandString)
 {
-	vector<string> tokens = { "" };
-	int i = 0;
-	bool inQuote = false, wasSpace = false;
+	vector<string> tokens;
+	int i = -1;
+	bool inQuote = false, wasSpace = true;
 
 	for (auto c : commandString) {
 		if (c == '\"') {
 			inQuote = !inQuote;
+			if (wasSpace) {
+				wasSpace = false;
+				tokens.push_back("");
+				i++;
+			}
 			tokens[i] += c;
 		}
 		else if (inQuote) {
@@ -72,5 +79,8 @@ vector<string> Translator::parseTokens(const string& commandString)
 			tokens[i] += c;
 		}
 	}
+
+	for (auto s : tokens)
+		cout << s << ',';
 	return tokens;
 }
