@@ -5,7 +5,7 @@
 
 namespace commands {
 	
-	class OutputStreamCommand : virtual Command {
+	class OutputStreamCommand : virtual public Command {
 	public:
 		std::string getOutputFilename() { return outputFilename_; }
 	private:

@@ -5,7 +5,7 @@
 
 namespace commands {
 
-	class InputStreamCommand : virtual Command {
+	class InputStreamCommand : virtual public Command {
 	public:
 		virtual void insertPipeline(std::string pipeline);
 	private:

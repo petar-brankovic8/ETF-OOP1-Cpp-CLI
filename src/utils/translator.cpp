@@ -1,16 +1,25 @@
 #include "translator.hpp"
-#include "../commands/command.hpp"
+#include "../commands/commands.hpp"
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <cctype>
-#include <iostream>
 
 using namespace std;
 using namespace commands;
 
 Translator::Translator() {
-	;
+	commandCreateMap["echo"] = &Echo::commandCreate;
+	commandCreateMap["prompt"] = &Prompt::commandCreate;
+	commandCreateMap["time"] = &Time::commandCreate;
+	commandCreateMap["date"] = &Date::commandCreate;
+	commandCreateMap["touch"] = &Touch::commandCreate;
+	commandCreateMap["truncate"] = &Truncate::commandCreate;
+	commandCreateMap["rm"] = &Rm::commandCreate;
+	commandCreateMap["wc"] = &Wc::commandCreate;
+	commandCreateMap["tr"] = &Tr::commandCreate;
+	commandCreateMap["head"] = &Head::commandCreate;
+	commandCreateMap["batch"] = &Batch::commandCreate;
 }
 
 vector<string> Translator::parsePipelines(const string& lineString) {
@@ -80,7 +89,5 @@ vector<string> Translator::parseTokens(const string& commandString)
 		}
 	}
 
-	for (auto s : tokens)
-		cout << s << ',';
 	return tokens;
 }

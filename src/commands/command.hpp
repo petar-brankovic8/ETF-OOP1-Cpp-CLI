@@ -4,19 +4,22 @@
 #include <string>
 #include <vector>
 
+using std::string;
+using std::vector;
+
 namespace commands {
 
 	class Command {
 	public:
-		virtual std::string run() = 0;
+		virtual string run() = 0;
 
-		virtual void addParameters(std::vector<std::string> tokens) = 0;
+		virtual void addParameters(vector<string> tokens) = 0;
 
 		OutputStreamType getOutputStreamType() const { return outputStream_; }
 
 	private:
-		InputStreamType inputStream_;
-		OutputStreamType outputStream_;
+		InputStreamType inputStream_ = InputStreamType::NoInputStream;
+		OutputStreamType outputStream_ = OutputStreamType::NoOutputStream;
 	};
 
 }

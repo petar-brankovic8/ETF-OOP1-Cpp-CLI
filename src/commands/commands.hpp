@@ -1,0 +1,16 @@
+#pragma once
+
+#include "command.hpp"
+#include "iscommand.hpp"
+#include "oscommand.hpp"
+#include "echo.hpp"
+#include "prompt.hpp"
+#include "time.hpp"
+#include "date.hpp"
+#include "touch.hpp"
+#include "truncate.hpp"
+#include "rm.hpp"
+#include "wc.hpp"
+#include "tr.hpp"
+#include "head.hpp"
+#include "batch.hpp"

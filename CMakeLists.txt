@@ -13,7 +13,7 @@ add_library (myProject STATIC
 		"src/core/commandline.cpp"
 		"src/commands/command.cpp"
 		"src/commands/iscommand.cpp"
-		"src/commands/oscommand.cpp")
+		"src/commands/oscommand.cpp" "src/commands/echo.cpp" "src/commands/prompt.cpp" "src/commands/time.cpp" "src/commands/date.cpp" "src/commands/touch.cpp" "src/commands/truncate.cpp" "src/commands/rm.cpp" "src/commands/wc.cpp" "src/commands/tr.cpp" "src/commands/head.cpp" "src/commands/batch.cpp")
 
 target_include_directories(myProject PUBLIC src/)
 
