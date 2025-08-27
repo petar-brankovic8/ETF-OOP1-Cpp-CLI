@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <cctype>
 
 using namespace std;
 using namespace commands;
@@ -36,6 +37,8 @@ vector<string> Translator::parsePipelines(const string& lineString) {
 Command* Translator::createCommand(const string& commandString) {
 	vector<string> tokens = parseTokens(commandString);
 
+	if (commandCreateMap.count(tokens[0]) == 0)
+		return nullptr; // Add throw exception logic
 	Command* command = commandCreateMap[tokens[0]]();
 	command->addParameters(tokens);
 
@@ -44,5 +47,30 @@ Command* Translator::createCommand(const string& commandString) {
 
 vector<string> Translator::parseTokens(const string& commandString)
 {
-	return vector<string>();
+	vector<string> tokens = { "" };
+	int i = 0;
+	bool inQuote = false, wasSpace = false;
+
+	for (auto c : commandString) {
+		if (c == '\"') {
+			inQuote = !inQuote;
+			tokens[i] += c;
+		}
+		else if (inQuote) {
+			tokens[i] += c;
+		}
+		else if (isspace(c)) {
+			wasSpace = true;
+		}
+		else if (wasSpace) {
+			wasSpace = false;
+			tokens.push_back("");
+			i++;
+			tokens[i] += c;
+		}
+		else {
+			tokens[i] += c;
+		}
+	}
+	return tokens;
 }
