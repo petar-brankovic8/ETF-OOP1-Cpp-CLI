@@ -11,7 +11,7 @@ class Translator {
 public: 
 	Translator();
 
-	virtual vector<string> parsePipelines(string& lineString);
+	virtual vector<string> parsePipelines(const string& lineString);
 
 	virtual Command* createCommand(string& commandString);
 
