@@ -6,9 +6,9 @@ Controller::Controller(Reader* reader, Translator* translator, Writer* writer) :
 
 void Controller::run() {
 	while (true) {
-		myWriter_->standardWrite(prompt_ + " ");
+		myWriter_->defaultWrite(prompt_ + " ");
 		std::string line = myReader_->readLine();
-		CommandLine commandLine = CommandLine(line, myTranslator_);
+		CommandLine commandLine = CommandLine(line, myTranslator_, myWriter_);
 		commandLine.execute();
 	}
 }

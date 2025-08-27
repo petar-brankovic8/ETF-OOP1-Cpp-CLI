@@ -10,3 +10,6 @@
 
 #Ignore out folder
 out/
+
+#Ignore CMakeSettings.json file
+CMakeSettings.json
