@@ -3,6 +3,7 @@
 #include "../commands/command.hpp"
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 using namespace commands;
@@ -13,7 +14,10 @@ public:
 
 	virtual vector<string> parsePipelines(const string& lineString);
 
-	virtual Command* createCommand(string& commandString);
+	virtual Command* createCommand(const string& commandString);
 
-	// Add functionalities
+	virtual vector<string> parseTokens(const string& commandString);
+
+private:
+	unordered_map<string, Command* (*)()> commandCreateMap;
 };

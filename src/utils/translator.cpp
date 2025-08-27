@@ -1,12 +1,16 @@
 #include "translator.hpp"
+#include "translator.hpp"
 #include "../commands/command.hpp"
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 using namespace commands;
 
-Translator::Translator() {}
+Translator::Translator() {
+	;
+}
 
 vector<string> Translator::parsePipelines(const string& lineString) {
 	vector<string> commandStrings = { "" };
@@ -29,7 +33,16 @@ vector<string> Translator::parsePipelines(const string& lineString) {
 	return commandStrings;
 }
 
-Command* Translator::createCommand(string& commandString) {
-	// Add logic
-	return nullptr;
+Command* Translator::createCommand(const string& commandString) {
+	vector<string> tokens = parseTokens(commandString);
+
+	Command* command = commandCreateMap[tokens[0]]();
+	command->addParameters(tokens);
+
+	return command;
+}
+
+vector<string> Translator::parseTokens(const string& commandString)
+{
+	return vector<string>();
 }
