@@ -10,4 +10,6 @@ namespace commands {
 		;
 	}
 
+	InputStreamCommand::InputStreamCommand() : Command(InputStreamType::Default) {}
+
 }

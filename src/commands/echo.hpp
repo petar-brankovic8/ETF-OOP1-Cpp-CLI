@@ -13,6 +13,7 @@ namespace commands {
 
 	class Echo : public InputStreamCommand, public OutputStreamCommand {
 	public:
+		Echo();
 		static Command* commandCreate();
 		string run() override;
 		void addParameters(vector<string> tokens) override;
