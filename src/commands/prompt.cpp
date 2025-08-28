@@ -7,6 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
+    Prompt::Prompt() : Command("prompt") {}
 
     Command* Prompt::commandCreate()
     {

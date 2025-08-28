@@ -12,7 +12,7 @@ namespace commands {
 		virtual void insertPipeline(string pipeline);
 
 	protected:
-		InputStreamCommand();
+		InputStreamCommand() : Command("inputStreamCommand") {}
 
 		void setInput(string input) { input_ = input; }
 		void setInputFilename(string inputFilename) { inputFilename_ = inputFilename; }

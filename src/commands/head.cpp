@@ -7,7 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
-    Head::Head() : Command(InputStreamType::Default, OutputStreamType::Default) {}
+    Head::Head() : Command(InputStreamType::Default, OutputStreamType::Default, "head") {}
 
     Command* Head::commandCreate()
     {

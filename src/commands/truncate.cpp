@@ -7,6 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
+    Truncate::Truncate() : Command("truncate") {}
 
     Command* Truncate::commandCreate()
     {

@@ -11,6 +11,8 @@ namespace commands {
 
 	class Truncate : public Command {
 	public:
+		Truncate();
+
 		static Command* commandCreate();
 
 		string run() override;

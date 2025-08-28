@@ -7,6 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
+    Rm::Rm() : Command("rm") {}
 
     Command* Rm::commandCreate()
     {

@@ -7,7 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
-    Date::Date() : Command(OutputStreamType::Default) {}
+    Date::Date() : Command(OutputStreamType::Default, "date") {}
 
     Command* Date::commandCreate()
     {

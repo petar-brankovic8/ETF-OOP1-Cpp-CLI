@@ -7,7 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
-    Batch::Batch() : Command(InputStreamType::Default, OutputStreamType::Default) {}
+    Batch::Batch() : Command(InputStreamType::Default, OutputStreamType::Default, "batch") {}
 
     Command* Batch::commandCreate()
     {

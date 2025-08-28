@@ -18,10 +18,12 @@ namespace commands {
 		OutputStreamType getOutputStreamType() const { return outputStream_; }
 
 	protected:
-		Command();
-		Command(InputStreamType inputStream);
-		Command(OutputStreamType outputStream);
-		Command(InputStreamType inputStream, OutputStreamType outputStream);
+		Command(string commandName);
+		Command(InputStreamType inputStream, string commandName);
+		Command(OutputStreamType outputStream, string commandName);
+		Command(InputStreamType inputStream, OutputStreamType outputStream, string commandName);
+
+		string getCommandName() { return commandName_; }
 
 		void setInputStream(InputStreamType inputStream) { inputStream_ = inputStream;  }
 		void setOutputStream(OutputStreamType outputStream) { outputStream_ = outputStream; }
@@ -30,6 +32,7 @@ namespace commands {
 		bool isQuoteArgument(string& s) { return  s.size() >= 2 && s[0] == '\"' && s[s.size() - 1] == '\"'; }
 
 	private:
+		const string commandName_;
 		InputStreamType inputStream_ = InputStreamType::NoInputStream;
 		OutputStreamType outputStream_ = OutputStreamType::NoOutputStream;
 	};

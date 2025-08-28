@@ -7,7 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
-    Time::Time() : Command(OutputStreamType::Default) {}
+    Time::Time() : Command(OutputStreamType::Default, "time") {}
 
     Command* Time::commandCreate()
     {

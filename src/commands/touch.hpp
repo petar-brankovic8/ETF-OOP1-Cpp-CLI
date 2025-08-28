@@ -11,6 +11,8 @@ namespace commands {
 
 	class Touch : public Command {
 	public:
+		Touch();
+
 		static Command* commandCreate();
 
 		string run() override;

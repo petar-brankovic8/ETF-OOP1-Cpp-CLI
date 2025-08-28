@@ -1,5 +1,6 @@
 #include "controller.hpp"
 #include "commandline.hpp"
+#include "../utils/exceptions.hpp"
 #include <string>
 #include <iostream>
 
@@ -23,8 +24,14 @@ void Controller::run() {
 			CommandLine commandLine = CommandLine(line, myTranslator_);
 			commandLine.execute();
 		}
-		catch (...) {
-
+		catch (const UnkownCommandException& e) {
+			cerr << "Unkown command: " << e.what() << '\n';
+		}
+		catch (const MissingRedirectionArgument e) {
+			cerr << "Missing redirection argument in command: " << e.what() << '\n';
+		}
+		catch (const exception& e) {
+			cerr << e.what() << '\n';
 		}
 	}
 }

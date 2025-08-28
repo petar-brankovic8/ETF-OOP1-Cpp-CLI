@@ -1,5 +1,6 @@
 #include "echo.hpp"
 #include "command.hpp"
+#include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
 
@@ -7,7 +8,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
-    Echo::Echo() : Command(InputStreamType::Default, OutputStreamType::Default) {}
+    Echo::Echo() : Command(InputStreamType::Default, OutputStreamType::Default, "echo") {}
 
     Command* Echo::commandCreate()
     {
@@ -29,7 +30,7 @@ namespace commands {
         addSecondParameter(tokens, currentToken);
 
         if (currentToken < tokens.size())
-            return; // Add throw exception logic
+            throw TooManyArguments(getCommandName());
     }
 
     void Echo::addFirstParameter(vector<string>& tokens, int& currentToken) {
@@ -41,7 +42,7 @@ namespace commands {
         }
         else if (isRedirectionSign(tokens[currentToken])) {
             if (currentToken + 1 >= tokens.size())
-                return; // Add throw exception logic
+                throw MissingRedirectionArgument(getCommandName());
             if (isInputStreamSign(tokens[currentToken])) {
                 inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
             }

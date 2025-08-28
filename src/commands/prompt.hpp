@@ -11,6 +11,8 @@ namespace commands {
 
 	class Prompt : public Command {
 	public:
+		Prompt();
+
 		static Command* commandCreate();
 
 		string run() override;

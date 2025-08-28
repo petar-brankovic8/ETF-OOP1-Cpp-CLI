@@ -11,6 +11,8 @@ namespace commands {
 
 	class Rm : public Command {
 	public:
+		Rm();
+
 		static Command* commandCreate();
 
 		string run() override;

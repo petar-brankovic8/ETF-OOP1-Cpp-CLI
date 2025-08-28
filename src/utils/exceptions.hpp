@@ -7,5 +7,13 @@ using std::runtime_error;
 using std::string;
 
 struct UnkownCommandException : public runtime_error {
-	explicit UnkownCommandException(string& unknownCommand) : runtime_error("Unkown command: " + unknownCommand) {}
+	using runtime_error::runtime_error;
+};
+
+struct MissingRedirectionArgument : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct TooManyArguments : public runtime_error {
+	using runtime_error::runtime_error;
 };

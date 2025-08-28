@@ -12,7 +12,7 @@ namespace commands {
 		string getOutputFilename() { return outputFilename_; }
 
 	protected:
-		OutputStreamCommand();
+		OutputStreamCommand() : Command("outputStreamCommand") {}
 
 		inline void setOutputFilename(string outputFilename) { outputFilename_ = outputFilename; }
 

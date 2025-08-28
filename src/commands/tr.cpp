@@ -7,7 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
-    Tr::Tr() : Command(InputStreamType::Default, OutputStreamType::Default) {}
+    Tr::Tr() : Command(InputStreamType::Default, OutputStreamType::Default, "tr") {}
 
     Command* Tr::commandCreate()
     {
