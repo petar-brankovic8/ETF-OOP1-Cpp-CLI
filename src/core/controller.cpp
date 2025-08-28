@@ -42,8 +42,11 @@ void Controller::run() {
 		catch (const ExpectedArgumentException& e) {
 			cerr << "Expected argument in command: " << e.what() << '\n';
 		}
-		catch (const ExpectedQuotedArgument& e) {
+		catch (const ExpectedQuotedArgumentException& e) {
 			cerr << "Expected quoted argument in command: " << e.what() << '\n';
+		}
+		catch (const ExpectedFilenameArgumentException& e) {
+			cerr << "Expected filename argument in command: " << e.what() << '\n';
 		}
 	}
 }

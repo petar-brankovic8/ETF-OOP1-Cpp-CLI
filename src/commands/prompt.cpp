@@ -31,7 +31,7 @@ namespace commands {
 
     void Prompt::addFirstParameter(vector<string>& tokens, int& currentToken) {
         if (!isQuoteArgument(tokens[currentToken]))
-            throw ExpectedQuotedArgument(getCommandName());
+            throw ExpectedQuotedArgumentException(getCommandName());
         setPromptString(tokens[currentToken].substr(1, tokens[currentToken].size()-2));
         currentToken++;
     }

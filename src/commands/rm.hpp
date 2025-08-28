@@ -18,6 +18,14 @@ namespace commands {
 		string run() override;
 
 		void addParameters(vector<string> tokens) override;
+
+	protected:
+		void setFilename(string filename) { filename_ = filename; }
+
+		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
+
+	private:
+		string filename_;
 	};
 
 }

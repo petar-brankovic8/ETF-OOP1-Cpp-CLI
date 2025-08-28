@@ -30,6 +30,10 @@ struct ExpectedArgumentException : public runtime_error {
 	using runtime_error::runtime_error;
 };
 
-struct ExpectedQuotedArgument : public runtime_error {
+struct ExpectedQuotedArgumentException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct ExpectedFilenameArgumentException : public runtime_error {
 	using runtime_error::runtime_error;
 };
