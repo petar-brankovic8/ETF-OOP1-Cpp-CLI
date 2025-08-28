@@ -20,6 +20,20 @@ namespace commands {
 		string run() override;
 
 		void addParameters(vector<string> tokens) override;
+
+	protected:
+		enum class Option { Word, Char };
+
+		void setOption(Option option) { option_ = option; }
+
+		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
+
+		virtual void addSecondParameter(vector<string>& tokens, int& currentToken);
+
+		virtual void addThirdParameter(vector<string>& tokens, int& currentToken);
+
+	private:
+		Option option_ = Option::Word;
 	};
 
 }

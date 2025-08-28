@@ -37,3 +37,19 @@ struct ExpectedQuotedArgumentException : public runtime_error {
 struct ExpectedFilenameArgumentException : public runtime_error {
 	using runtime_error::runtime_error;
 };
+
+struct ExpectedOptionArgumentException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct InvalidOptionException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct ExpectedArgumentBeforeRedirectionException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct RedirectionNotAtEndException : public runtime_error {
+	using runtime_error::runtime_error;
+};

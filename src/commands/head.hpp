@@ -20,6 +20,19 @@ namespace commands {
 		string run() override;
 
 		void addParameters(vector<string> tokens) override;
+
+	protected:
+		void setNcount(int ncount) { ncount_ = ncount; }
+		int getNcount() { return ncount_; }
+
+		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
+
+		virtual void addSecondParameter(vector<string>& tokens, int& currentToken);
+
+		virtual void addThirdParameter(vector<string>& tokens, int& currentToken);
+
+	private:
+		int ncount_ = 0;
 	};
 
 }

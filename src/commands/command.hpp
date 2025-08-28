@@ -31,6 +31,7 @@ namespace commands {
 
 		bool isRedirectionSign(string& s) { return s == ">" || s == ">>" || s == "<"; }
 		bool isQuoteArgument(string& s) { return  s.size() >= 2 && s[0] == '\"' && s[s.size() - 1] == '\"'; }
+		bool isOptionArgument(string& s) { return s[0] == '-'; }
 
 	private:
 		const string commandName_;

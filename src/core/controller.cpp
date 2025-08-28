@@ -48,5 +48,17 @@ void Controller::run() {
 		catch (const ExpectedFilenameArgumentException& e) {
 			cerr << "Expected filename argument in command: " << e.what() << '\n';
 		}
+		catch (const ExpectedOptionArgumentException& e) {
+			cerr << "Exptect option argument in command: " << e.what() << '\n';
+		}
+		catch (const InvalidOptionException& e) {
+			cerr << "Invalid option for command: " << e.what() << '\n';
+		}
+		catch (const ExpectedArgumentBeforeRedirectionException& e) {
+			cerr << "Expected argument before redirection in command: " << e.what() << '\n';
+		}
+		catch (const RedirectionNotAtEndException& e) {
+			cerr << "Redirection not at the end of command: " << e.what() << '\n';
+		}
 	}
 }
