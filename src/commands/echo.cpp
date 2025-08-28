@@ -30,7 +30,7 @@ namespace commands {
         addSecondParameter(tokens, currentToken);
 
         if (currentToken < tokens.size())
-            throw TooManyArguments(getCommandName());
+            throw TooManyArgumentsException(getCommandName());
     }
 
     void Echo::addFirstParameter(vector<string>& tokens, int& currentToken) {
@@ -42,7 +42,7 @@ namespace commands {
         }
         else if (isRedirectionSign(tokens[currentToken])) {
             if (currentToken + 1 >= tokens.size())
-                throw MissingRedirectionArgument(getCommandName());
+                throw MissingRedirectionArgumentException(getCommandName());
             if (isInputStreamSign(tokens[currentToken])) {
                 inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
             }
@@ -63,7 +63,7 @@ namespace commands {
     void Echo::addSecondParameter(vector<string>& tokens, int& currentToken) {
         if (isRedirectionSign(tokens[currentToken])) {
             if (currentToken + 1 >= tokens.size())
-                return; // Add throw exception logic
+                throw MissingRedirectionArgumentException(getCommandName());
             if (isInputStreamSign(tokens[currentToken])) {
                 inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
             }
@@ -72,7 +72,7 @@ namespace commands {
             }
             currentToken += 2;
         }
-        else return; // Add throw exception logic
+        else throw TooManyArgumentsException(getCommandName());
     }
 
 }

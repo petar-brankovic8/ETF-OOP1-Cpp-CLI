@@ -1,7 +1,9 @@
 #include "iscommand.hpp"
+#include "../utils/constants.hpp"
+#include "../utils/exceptions.hpp"
 #include <string>
 
-using namespace std;
+using std::string;
 
 namespace commands {
 
@@ -11,8 +13,10 @@ namespace commands {
 	}
 
 	void InputStreamCommand::inputStreamRedirection(string redirectionSign, string filename) {
-		// Add logic
-		;
+		if (getInputStream() != InputStreamType::Default)
+			throw TooManyInputStreamDefinitionsException(getCommandName());
+		setInputStream(InputStreamType::TxtFile);
+		setInputFilename(filename);
 	}
 
 }

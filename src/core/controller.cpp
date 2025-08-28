@@ -27,11 +27,17 @@ void Controller::run() {
 		catch (const UnkownCommandException& e) {
 			cerr << "Unkown command: " << e.what() << '\n';
 		}
-		catch (const MissingRedirectionArgument e) {
+		catch (const MissingRedirectionArgumentException& e) {
 			cerr << "Missing redirection argument in command: " << e.what() << '\n';
 		}
-		catch (const exception& e) {
-			cerr << e.what() << '\n';
+		catch (const TooManyArgumentsException& e) {
+			cerr << "Too many arguments in command: " << e.what() << '\n';
+		}
+		catch (const TooManyInputStreamDefinitionsException& e) {
+			cerr << "Too many input streams defined in command: " << e.what() << '\n';
+		}
+		catch (const TooManyOutputStreamDefinitionsException& e) {
+			cerr << "Too many output streams defined in command: " << e.what() << '\n';
 		}
 	}
 }

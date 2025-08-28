@@ -39,7 +39,7 @@ void CommandLine::execute() {
 	Command* lastCommand = commands_[commands_.size() - 1];
 	if (!lastCommand) 
 		return;
-	OutputStreamType myOutputStream = lastCommand->getOutputStreamType();
+	OutputStreamType myOutputStream = lastCommand->getOutputStream();
 
 	string outputFilename = "";
 	if (myOutputStream == OutputStreamType::TxtFileOverwrite || myOutputStream == OutputStreamType::TxtFileAppend)

@@ -15,7 +15,7 @@ namespace commands {
 
 		virtual void addParameters(vector<string> tokens) = 0;
 
-		OutputStreamType getOutputStreamType() const { return outputStream_; }
+		OutputStreamType getOutputStream() const { return outputStream_; }
 
 	protected:
 		Command(string commandName);
@@ -24,6 +24,7 @@ namespace commands {
 		Command(InputStreamType inputStream, OutputStreamType outputStream, string commandName);
 
 		string getCommandName() { return commandName_; }
+		InputStreamType getInputStream() { return inputStream_; }
 
 		void setInputStream(InputStreamType inputStream) { inputStream_ = inputStream;  }
 		void setOutputStream(OutputStreamType outputStream) { outputStream_ = outputStream; }
