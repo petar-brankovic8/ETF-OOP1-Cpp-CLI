@@ -13,8 +13,12 @@ namespace commands {
 
 	class Tr : public InputStreamCommand, public OutputStreamCommand {
 	public:
+		Tr();
+
 		static Command* commandCreate();
+
 		string run() override;
+
 		void addParameters(vector<string> tokens) override;
 	};
 

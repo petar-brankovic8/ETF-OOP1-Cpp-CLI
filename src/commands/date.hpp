@@ -12,8 +12,12 @@ namespace commands {
 
 	class Date : public OutputStreamCommand {
 	public:
+		Date();
+
 		static Command* commandCreate();
+
 		string run() override;
+
 		void addParameters(vector<string> tokens) override;
 	};
 

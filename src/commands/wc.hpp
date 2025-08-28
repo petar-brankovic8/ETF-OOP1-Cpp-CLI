@@ -13,8 +13,12 @@ namespace commands {
 
 	class Wc : public InputStreamCommand, public OutputStreamCommand {
 	public:
+		Wc();
+
 		static Command* commandCreate();
+
 		string run() override;
+
 		void addParameters(vector<string> tokens) override;
 	};
 

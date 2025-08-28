@@ -18,6 +18,7 @@ namespace commands {
 		OutputStreamType getOutputStreamType() const { return outputStream_; }
 
 	protected:
+		Command();
 		Command(InputStreamType inputStream);
 		Command(OutputStreamType outputStream);
 		Command(InputStreamType inputStream, OutputStreamType outputStream);

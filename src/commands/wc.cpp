@@ -7,6 +7,7 @@ using std::string;
 using std::vector;
 
 namespace commands {
+    Wc::Wc() : Command(InputStreamType::Default, OutputStreamType::Default) {}
 
     Command* Wc::commandCreate()
     {

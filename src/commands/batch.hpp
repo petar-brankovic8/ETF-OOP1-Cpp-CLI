@@ -13,8 +13,12 @@ namespace commands {
 
 	class Batch : public InputStreamCommand, public OutputStreamCommand {
 	public:
+		Batch();
+
 		static Command* commandCreate();
+
 		string run() override;
+
 		void addParameters(vector<string> tokens) override;
 	};
 

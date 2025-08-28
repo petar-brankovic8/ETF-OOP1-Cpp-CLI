@@ -12,7 +12,9 @@ namespace commands {
 	class Rm : public Command {
 	public:
 		static Command* commandCreate();
+
 		string run() override;
+
 		void addParameters(vector<string> tokens) override;
 	};
 
