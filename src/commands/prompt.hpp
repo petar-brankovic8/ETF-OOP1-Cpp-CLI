@@ -18,6 +18,14 @@ namespace commands {
 		string run() override;
 
 		void addParameters(vector<string> tokens) override;
+
+	protected:
+		void setPromptString(string promptString) { promptString_ = promptString; }
+
+		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
+	
+	private:
+		string promptString_;
 	};
 
 }

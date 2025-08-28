@@ -19,6 +19,9 @@ namespace commands {
 		string run() override;
 
 		void addParameters(vector<string> tokens) override;
+
+	protected:
+		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
 	};
 
 }

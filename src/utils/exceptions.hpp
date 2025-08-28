@@ -29,3 +29,7 @@ struct TooManyOutputStreamDefinitionsException : public runtime_error {
 struct ExpectedArgumentException : public runtime_error {
 	using runtime_error::runtime_error;
 };
+
+struct ExpectedQuotedArgument : public runtime_error {
+	using runtime_error::runtime_error;
+};

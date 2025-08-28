@@ -39,5 +39,11 @@ void Controller::run() {
 		catch (const TooManyOutputStreamDefinitionsException& e) {
 			cerr << "Too many output streams defined in command: " << e.what() << '\n';
 		}
+		catch (const ExpectedArgumentException& e) {
+			cerr << "Expected argument in command: " << e.what() << '\n';
+		}
+		catch (const ExpectedQuotedArgument& e) {
+			cerr << "Expected quoted argument in command: " << e.what() << '\n';
+		}
 	}
 }
