@@ -7,9 +7,9 @@ project (ETF-OOP1-Cpp-CLI LANGUAGES CXX)
 
 add_library (myProject STATIC 
 		"src/core/controller.cpp"
-		"src/utils/reader.cpp"
+		
 		"src/utils/translator.cpp"
-		"src/utils/writer.cpp"
+		
 		"src/core/commandline.cpp"
 		"src/commands/command.cpp"
 		"src/commands/iscommand.cpp"

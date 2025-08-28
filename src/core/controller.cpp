@@ -1,14 +1,30 @@
 #include "controller.hpp"
 #include "commandline.hpp"
 #include <string>
+#include <iostream>
 
-Controller::Controller(Reader* reader, Translator* translator, Writer* writer) : myReader_(reader), myTranslator_(translator), myWriter_(writer) {};
+using namespace std;
+
+Controller::Controller(Translator* translator) : myTranslator_(translator) {};
 
 void Controller::run() {
 	while (true) {
-		myWriter_->defaultWrite("\n" + prompt_ + " ");
-		std::string line = myReader_->readLine();
-		CommandLine commandLine = CommandLine(line, myTranslator_, myWriter_);
-		commandLine.execute();
+		//Prompt
+		cout << "\n" + prompt_ + " ";
+		
+		//Read line
+		string line;
+		getline(cin, line);
+		if (line.size() > kMaxLineSize)
+			line.resize(kMaxLineSize);
+
+		//Construct and execute command line
+		try {
+			CommandLine commandLine = CommandLine(line, myTranslator_);
+			commandLine.execute();
+		}
+		catch (...) {
+
+		}
 	}
 }

@@ -9,13 +9,15 @@
 using namespace std;
 using namespace commands;
 
-CommandLine::CommandLine(string lineString, Translator* translator, Writer* writer) : myTranslator_(translator), myWriter_(writer) {
+CommandLine::CommandLine(string lineString, Translator* translator) : myTranslator_(translator) {
 	vector<string> commandStrings = myTranslator_->parsePipelines(lineString);
 
 	for (auto commandString : commandStrings) {
 		Command* newCommand = myTranslator_->createCommand(commandString);
 		commands_.push_back(newCommand);
 	}
+
+	this->checkSemantics();
 }
 
 void CommandLine::execute() {
@@ -43,5 +45,15 @@ void CommandLine::execute() {
 	if (myOutputStream == OutputStreamType::TxtFileOverwrite || myOutputStream == OutputStreamType::TxtFileAppend)
 		outputFilename = dynamic_cast<OutputStreamCommand*>(lastCommand)->getOutputFilename();
 
-	myWriter_->write(pipeline, myOutputStream, outputFilename);
+	write(pipeline, myOutputStream, outputFilename);
+}
+
+void CommandLine::checkSemantics() const {
+	// Add logic
+	;
+}
+
+void CommandLine::write(std::string text, OutputStreamType outputStream, std::string outputFilename) {
+	// Add logic
+	;
 }
