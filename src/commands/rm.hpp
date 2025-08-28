@@ -25,7 +25,7 @@ namespace commands {
 		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
 
 	private:
-		string filename_;
+		string filename_ = "";
 	};
 
 }

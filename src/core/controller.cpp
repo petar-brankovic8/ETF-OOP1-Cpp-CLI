@@ -60,5 +60,14 @@ void Controller::run() {
 		catch (const RedirectionNotAtEndException& e) {
 			cerr << "Redirection not at the end of command: " << e.what() << '\n';
 		}
+		catch (const NoInputStreamException& e) {
+			cerr << "This command cannot have input stream: " << e.what() << '\n';
+		}
+		catch (const NoOutputStreamException& e) {
+			cerr << "This command cannot have output stream: " << e.what() << '\n';
+		}
+		catch (const ExpectedCommandAroundPipelineException& e) {
+			cerr << "Expected command around pipeline '|'" << '\n';
+		}
 	}
 }

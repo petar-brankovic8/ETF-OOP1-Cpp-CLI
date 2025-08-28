@@ -1,6 +1,7 @@
 #include "commandline.hpp"
 #include "../utils/translator.hpp"
 #include "../utils/constants.hpp"
+#include "../utils/exceptions.hpp"
 #include "../commands/command.hpp"
 #include "../commands/iscommand.hpp"
 #include "../commands/oscommand.hpp"
@@ -49,8 +50,23 @@ void CommandLine::execute() {
 }
 
 void CommandLine::checkSemantics() const {
-	// Add logic
-	;
+	for (int i = 0; i < commands_.size(); i++) {
+		if (commands_.size() > 1 && commands_[i] == nullptr)
+			throw ExpectedCommandAroundPipelineException("");
+
+		if (i > 0) {
+			if (commands_[i]->getInputStream() == InputStreamType::NoInputStream)
+				throw NoInputStreamException(commands_[i]->getCommandName());
+			if (commands_[i]->getInputStream() != InputStreamType::Default)
+				throw TooManyInputStreamDefinitionsException(commands_[i]->getCommandName());
+		}
+		if (i < commands_.size() - 1) {
+			if (commands_[i]->getOutputStream() == OutputStreamType::NoOutputStream)
+				throw NoOutputStreamException(commands_[i]->getCommandName());
+			if (commands_[i]->getOutputStream() != OutputStreamType::Default)
+				throw TooManyOutputStreamDefinitionsException(commands_[i]->getCommandName());
+		}
+	}
 }
 
 void CommandLine::write(std::string text, OutputStreamType outputStream, std::string outputFilename) {

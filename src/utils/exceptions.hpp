@@ -53,3 +53,15 @@ struct ExpectedArgumentBeforeRedirectionException : public runtime_error {
 struct RedirectionNotAtEndException : public runtime_error {
 	using runtime_error::runtime_error;
 };
+
+struct NoInputStreamException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct NoOutputStreamException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct ExpectedCommandAroundPipelineException : public runtime_error {
+	using runtime_error::runtime_error;
+};
