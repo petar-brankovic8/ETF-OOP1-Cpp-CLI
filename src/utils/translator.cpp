@@ -1,5 +1,6 @@
 #include "translator.hpp"
 #include "../commands/commands.hpp"
+#include "exceptions.hpp"
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -49,7 +50,7 @@ Command* Translator::createCommand(const string& commandString) {
 	if (tokens.empty())
 		return nullptr;
 	if (commandCreateMap.count(tokens[0]) == 0)
-		return nullptr; // Add throw exception logic
+		throw UnkownCommandException(tokens[0]);
 	Command* command = commandCreateMap[tokens[0]]();
 	command->addParameters(tokens);
 

@@ -12,4 +12,9 @@ namespace commands {
 
 	InputStreamCommand::InputStreamCommand() : Command(InputStreamType::Default) {}
 
+	void InputStreamCommand::inputStreamRedirection(string redirectionSign, string filename) {
+		// Add logic
+		;
+	}
+
 }

@@ -3,16 +3,26 @@
 #include "command.hpp"
 #include <string>
 
+using std::string;
+
 namespace commands {
 
 	class InputStreamCommand : virtual public Command {
 	public:
-		virtual void insertPipeline(std::string pipeline);
+		virtual void insertPipeline(string pipeline);
+
 	protected:
 		InputStreamCommand();
-		inline void setInput(std::string input) { input_ = input; }
+
+		void setInput(string input) { input_ = input; }
+
+		virtual bool isInputStreamSign(string sign) { return sign == "<"; }
+
+		virtual void inputStreamRedirection(string redirectionSign, string filename);
+
 	private:
-		std::string input_;
+		string inputFilename_;
+		string input_;
 	};
 
 }

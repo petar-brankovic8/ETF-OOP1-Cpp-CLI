@@ -29,7 +29,7 @@ namespace commands {
             setInput(tokens[currentArg].substr(1, tokens[currentArg].size() - 2));
             currentArg++;
         }
-        else if (!isRedirectionSign(tokens[currentArg]) {
+        else if (!isRedirectionSign(tokens[currentArg])) {
             setInputStream(InputStreamType::TxtFile);
             setInput(tokens[currentArg]);
             currentArg++;

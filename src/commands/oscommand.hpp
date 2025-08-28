@@ -3,16 +3,25 @@
 #include "command.hpp"
 #include <string>
 
+using std::string;
+
 namespace commands {
 	
 	class OutputStreamCommand : virtual public Command {
 	public:
-		std::string getOutputFilename() { return outputFilename_; }
+		string getOutputFilename() { return outputFilename_; }
+
 	protected:
 		OutputStreamCommand();
-		inline void setOutputFilename(std::string outputFilename) { outputFilename_ = outputFilename; }
+
+		inline void setOutputFilename(string outputFilename) { outputFilename_ = outputFilename; }
+
+		virtual bool isOutputStreamSign(string sign) { return sign == ">" || sign == ">>"; }
+
+		virtual void outputStreamRedirection(string sign, string outputFilename);
+
 	private:
-		std::string outputFilename_ = "";
+		string outputFilename_ = "";
 	};
 
 }
