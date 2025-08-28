@@ -9,12 +9,11 @@ namespace commands {
 
 	class InputStreamCommand : virtual public Command {
 	public:
-		virtual void insertPipeline(string pipeline);
+		void setInput(string input) { input_ = input; }
 
 	protected:
 		InputStreamCommand() : Command("inputStreamCommand") {}
-
-		void setInput(string input) { input_ = input; }
+		
 		void setInputFilename(string inputFilename) { inputFilename_ = inputFilename; }
 
 		virtual bool isInputStreamSign(string sign) { return sign == "<"; }

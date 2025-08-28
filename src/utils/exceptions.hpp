@@ -65,3 +65,7 @@ struct NoOutputStreamException : public runtime_error {
 struct ExpectedCommandAroundPipelineException : public runtime_error {
 	using runtime_error::runtime_error;
 };
+
+struct FileNotOpenedException : public runtime_error {
+	using runtime_error::runtime_error;
+};

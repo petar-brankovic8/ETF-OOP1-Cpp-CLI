@@ -69,5 +69,8 @@ void Controller::run() {
 		catch (const ExpectedCommandAroundPipelineException& e) {
 			cerr << "Expected command around pipeline '|'" << '\n';
 		}
+		catch (const FileNotOpenedException& e) {
+			cerr << "Error file not opened: " << e.what() << '\n';
+		}
 	}
 }

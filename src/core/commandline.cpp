@@ -6,6 +6,8 @@
 #include "../commands/iscommand.hpp"
 #include "../commands/oscommand.hpp"
 #include <string>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 using namespace commands;
@@ -22,24 +24,23 @@ CommandLine::CommandLine(string lineString, Translator* translator) : myTranslat
 }
 
 void CommandLine::execute() {
-	if (commands_.size() == 0) return;
+	if (commands_[0] == nullptr) 
+		return;
 
+	//Execution
 	string pipeline;
 	bool pipelineActive = false;
 
 	for (auto command : commands_) {
-		if (!command) 
-			continue;
 		if (pipelineActive)
-			dynamic_cast<InputStreamCommand*>(command)->insertPipeline(pipeline);
+			dynamic_cast<InputStreamCommand*>(command)->setInput(pipeline);
 		else
 			pipelineActive = true;
 		pipeline = command->run();
 	}
 
+	//Output
 	Command* lastCommand = commands_[commands_.size() - 1];
-	if (!lastCommand) 
-		return;
 	OutputStreamType myOutputStream = lastCommand->getOutputStream();
 
 	string outputFilename = "";
@@ -70,6 +71,25 @@ void CommandLine::checkSemantics() const {
 }
 
 void CommandLine::write(std::string text, OutputStreamType outputStream, std::string outputFilename) {
-	// Add logic
-	;
+	switch (outputStream) {
+	case OutputStreamType::NoOutputStream:
+		return;
+	case OutputStreamType::Default:
+		cout << text << '\n';
+		break;
+	case OutputStreamType::TxtFileOverwrite: {
+		ofstream outFile(outputFilename);
+		if (!outFile)
+			throw FileNotOpenedException(outputFilename);
+		outFile << text; 
+		break;
+	}
+	case OutputStreamType::TxtFileAppend: {
+		ofstream outFile(outputFilename, ios::app);
+		if (!outFile)
+			throw FileNotOpenedException(outputFilename);
+		outFile << text;
+		break;
+	}
+	}
 }

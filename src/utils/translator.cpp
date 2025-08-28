@@ -86,6 +86,10 @@ vector<string> Translator::parseTokens(const string& commandString)
 			tokens[i] += c;
 		}
 		else {
+			if (tokens[i] == "<" || (tokens[i] == ">" && c != '>') || tokens[i] == ">>") {
+				tokens.push_back("");
+				i++;
+			}
 			tokens[i] += c;
 		}
 	}
