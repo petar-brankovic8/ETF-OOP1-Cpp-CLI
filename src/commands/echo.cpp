@@ -21,54 +21,57 @@ namespace commands {
     void Echo::addParameters(vector<string> tokens) {
         if (tokens.size() == 1)
             return;
+        int currentToken = 1;
+        addFirstParameter(tokens, currentToken);
 
-        int currentArg = 1;
-
-        if (isQuoteArgument(tokens[currentArg])) {
-            setInputStream(InputStreamType::QuoteArgument);
-            setInput(tokens[currentArg].substr(1, tokens[currentArg].size() - 2));
-            currentArg++;
-        }
-        else if (!isRedirectionSign(tokens[currentArg])) {
-            setInputStream(InputStreamType::TxtFile);
-            setInput(tokens[currentArg]);
-            currentArg++;
-        }
-
-        if (currentArg >= tokens.size())
+        if (currentToken >= tokens.size())
             return;
+        addSecondParameter(tokens, currentToken);
 
-        if (isRedirectionSign(tokens[currentArg])) {
-            if (currentArg + 1 >= tokens.size())
-                return; // Add throw exception logic
-            if (isInputStreamSign(tokens[currentArg])) {
-                inputStreamRedirection(tokens[currentArg], tokens[currentArg+1]);
-            }
-            if (isOutputStreamSign(tokens[currentArg])) {
-                outputStreamRedirection(tokens[currentArg], tokens[currentArg + 1]);
-            }
-            currentArg += 2;
-        }
-        else return; // Add throw exception logic
-
-        if (currentArg >= tokens.size())
-            return;
-
-        if (isRedirectionSign(tokens[currentArg])) {
-            if (currentArg + 1 >= tokens.size())
-                return; // Add throw exception logic
-            if (isInputStreamSign(tokens[currentArg])) {
-                inputStreamRedirection(tokens[currentArg], tokens[currentArg + 1]);
-            }
-            if (isOutputStreamSign(tokens[currentArg])) {
-                outputStreamRedirection(tokens[currentArg], tokens[currentArg + 1]);
-            }
-            currentArg += 2;
-        }
-        else return; // Add throw exception logic
-
-        if (currentArg < tokens.size())
+        if (currentToken < tokens.size())
             return; // Add throw exception logic
+    }
+
+    void Echo::addFirstParameter(vector<string>& tokens, int& currentToken) {
+        if (isQuoteArgument(tokens[currentToken])) {
+            setInputStream(InputStreamType::QuoteArgument);
+            setInput(tokens[currentToken].substr(1, tokens[currentToken].size() - 2));
+            currentToken++;
+            return;
+        }
+        else if (isRedirectionSign(tokens[currentToken])) {
+            if (currentToken + 1 >= tokens.size())
+                return; // Add throw exception logic
+            if (isInputStreamSign(tokens[currentToken])) {
+                inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+            }
+            if (isOutputStreamSign(tokens[currentToken])) {
+                outputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+            }
+            currentToken += 2;
+            return;
+        }
+        else  {
+            setInputStream(InputStreamType::TxtFile);
+            setInputFilename(tokens[currentToken]);
+            currentToken++;
+            return;
+        }
+    }
+
+    void Echo::addSecondParameter(vector<string>& tokens, int& currentToken) {
+        if (isRedirectionSign(tokens[currentToken])) {
+            if (currentToken + 1 >= tokens.size())
+                return; // Add throw exception logic
+            if (isInputStreamSign(tokens[currentToken])) {
+                inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+            }
+            if (isOutputStreamSign(tokens[currentToken])) {
+                outputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+            }
+            currentToken += 2;
+        }
+        else return; // Add throw exception logic
     }
 
 }

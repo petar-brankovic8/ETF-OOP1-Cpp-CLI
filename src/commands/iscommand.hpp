@@ -15,6 +15,7 @@ namespace commands {
 		InputStreamCommand();
 
 		void setInput(string input) { input_ = input; }
+		void setInputFilename(string inputFilename) { inputFilename_ = inputFilename; }
 
 		virtual bool isInputStreamSign(string sign) { return sign == "<"; }
 
