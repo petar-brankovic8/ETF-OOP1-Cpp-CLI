@@ -3,9 +3,11 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
     Time::Time() : Command(OutputStreamType::Default, "time") {}
@@ -16,7 +18,12 @@ namespace commands {
     }
 
     string Time::run() {
-        return string();
+        auto now = std::chrono::system_clock::now();
+        std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+        std::tm* localTime = std::localtime(&currentTime);
+        std::stringstream ss;
+        ss << std::put_time(localTime, "%H:%M:%S");
+        return ss.str();
     }
 
     void Time::addParameters(vector<string> tokens) {
