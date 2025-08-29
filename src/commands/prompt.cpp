@@ -1,6 +1,7 @@
 #include "prompt.hpp"
 #include "command.hpp"
 #include "../utils/exceptions.hpp"
+#include "../core/controller.hpp"
 #include <string>
 #include <vector>
 
@@ -16,7 +17,8 @@ namespace commands {
     }
 
     string Prompt::run() {
-        return string();
+        myController_->setPrompt(promptString_);
+        return "";
     }
 
     void Prompt::addParameters(vector<string> tokens) {

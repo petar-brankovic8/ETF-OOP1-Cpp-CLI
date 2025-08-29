@@ -7,6 +7,8 @@
 using std::string;
 using std::vector;
 
+class Controller;
+
 namespace commands {
 
 	class Prompt : public Command {
@@ -19,6 +21,8 @@ namespace commands {
 
 		void addParameters(vector<string> tokens) override;
 
+		void setController(Controller* controller) { myController_ = controller; }
+
 	protected:
 		void setPromptString(string promptString) { promptString_ = promptString; }
 
@@ -26,6 +30,7 @@ namespace commands {
 	
 	private:
 		string promptString_;
+		Controller* myController_ = nullptr;
 	};
 
 }

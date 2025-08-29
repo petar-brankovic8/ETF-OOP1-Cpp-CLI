@@ -1,4 +1,5 @@
 #include "commandline.hpp"
+#include "controller.hpp"
 #include "../utils/translator.hpp"
 #include "../utils/constants.hpp"
 #include "../utils/exceptions.hpp"
@@ -6,6 +7,7 @@
 #include "../commands/iscommand.hpp"
 #include "../commands/oscommand.hpp"
 #include "../commands/batch.hpp"
+#include "../commands/prompt.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -14,7 +16,7 @@
 using namespace std;
 using namespace commands;
 
-CommandLine::CommandLine(string lineString, Translator* translator, istream* inputSource) : myTranslator_(translator) {
+CommandLine::CommandLine(string lineString, Translator* translator, istream* inputSource, Controller* controller) : myTranslator_(translator) {
 	vector<string> commandStrings = myTranslator_->parsePipelines(lineString);
 
 	for (auto commandString : commandStrings) {
@@ -22,9 +24,12 @@ CommandLine::CommandLine(string lineString, Translator* translator, istream* inp
 
 		if (newCommand && newCommand->getInputStream() == InputStreamType::Default)
 			dynamic_cast<InputStreamCommand*>(newCommand)->setInputSource(inputSource);
-		if (newCommand && newCommand->getCommandName() == "batch")
+		if (newCommand && newCommand->getCommandName() == "prompt")
+			dynamic_cast<Prompt*>(newCommand)->setController(controller);
+		if (newCommand && newCommand->getCommandName() == "batch") {
 			dynamic_cast<Batch*>(newCommand)->setTranslator(myTranslator_);
-
+			dynamic_cast<Batch*>(newCommand)->setController(controller);
+		}
 		commands_.push_back(newCommand);
 	}
 
@@ -60,7 +65,7 @@ string CommandLine::execute() {
 	string result = "";
 	if (myOutputStream == OutputStreamType::Default)
 		result = pipeline;
-	return result;
+	return result + '\n';
 }
 
 void CommandLine::checkSemantics() const {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "controller.hpp"
 #include "../utils/translator.hpp"
 #include "../commands/command.hpp"
 #include <string>
@@ -10,7 +11,7 @@ using std::string;
 
 class CommandLine {
 public:
-	CommandLine(string lineString, Translator* translator, istream* inputSource);
+	CommandLine(string lineString, Translator* translator, istream* inputSource, Controller* controller);
 
 	virtual string execute();
 

@@ -41,7 +41,7 @@ namespace commands {
 				if (line.size() > kMaxLineSize)
 					line.resize(kMaxLineSize);
 				try {
-					CommandLine commandLine = CommandLine(line, myTranslator_, getInputSource());
+					CommandLine commandLine = CommandLine(line, myTranslator_, getInputSource(), myController_);
 					result += commandLine.execute();
 				}
 				catch (runtime_error& e) {
@@ -54,6 +54,7 @@ namespace commands {
 			}
 		}
 		else {
+			//Setting up input stream source
 			istream* myInputSource = nullptr;
 
 			istringstream iss(getInput());
@@ -67,13 +68,13 @@ namespace commands {
 				myInputSource = &ifs;
 			}
 
+			//Batch command line execution
 			string line;
 			while (getline(*myInputSource, line)) {
-				//Batch command line execution
 				if (line.size() > kMaxLineSize)
 					line.resize(kMaxLineSize);
 				try {
-					CommandLine commandLine = CommandLine(line, myTranslator_, myInputSource);
+					CommandLine commandLine = CommandLine(line, myTranslator_, myInputSource, myController_);
 					result += commandLine.execute();
 				}
 				catch (runtime_error& e) {

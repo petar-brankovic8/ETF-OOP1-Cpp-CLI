@@ -4,6 +4,7 @@
 #include "iscommand.hpp"
 #include "oscommand.hpp"
 #include "../utils/translator.hpp"
+#include "../core/controller.hpp"
 #include <string>
 #include <vector>
 
@@ -24,6 +25,8 @@ namespace commands {
 
 		void setTranslator(Translator* translator) { myTranslator_ = translator; }
 
+		void setController(Controller* controller) { myController_ = controller; }
+
 	protected:
 		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
 
@@ -31,6 +34,7 @@ namespace commands {
 
 	private:
 		Translator* myTranslator_ = nullptr;
+		Controller* myController_ = nullptr;
 	};
 
 }

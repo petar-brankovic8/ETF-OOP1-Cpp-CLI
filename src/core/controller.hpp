@@ -1,7 +1,10 @@
 #pragma once
 
 #include "../utils/translator.hpp"
+#include "../commands/prompt.hpp"
 #include <string>
+
+using std::string;
 
 class Controller {
 public:
@@ -9,7 +12,12 @@ public:
 
 	void run();
 
+	friend string commands::Prompt::run();
+
+protected:
+	void setPrompt(string prompt) { prompt_ = prompt; }
+
 private:
-	std::string prompt_ = "$";
+	string prompt_ = "$";
 	Translator* myTranslator_;
 };
