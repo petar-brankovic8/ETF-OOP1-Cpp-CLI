@@ -21,8 +21,8 @@ void Controller::run() {
 
 		//Construct and execute command line
 		try {
-			CommandLine commandLine = CommandLine(line, myTranslator_);
-			commandLine.execute();
+			CommandLine commandLine = CommandLine(line, myTranslator_, &cin);
+			cout << commandLine.execute();
 		}
 		catch (const UnkownCommandException& e) {
 			cerr << "Unkown command: " << e.what() << '\n';

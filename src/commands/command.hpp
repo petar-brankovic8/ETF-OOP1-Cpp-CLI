@@ -21,14 +21,14 @@ namespace commands {
 		InputStreamType getInputStream() { return inputStream_; }
 		OutputStreamType getOutputStream() { return outputStream_; }
 
+		void setInputStream(InputStreamType inputStream) { inputStream_ = inputStream; }
+		void setOutputStream(OutputStreamType outputStream) { outputStream_ = outputStream; }
+
 	protected:
 		Command(string commandName);
 		Command(InputStreamType inputStream, string commandName);
 		Command(OutputStreamType outputStream, string commandName);
-		Command(InputStreamType inputStream, OutputStreamType outputStream, string commandName);
-
-		void setInputStream(InputStreamType inputStream) { inputStream_ = inputStream;  }
-		void setOutputStream(OutputStreamType outputStream) { outputStream_ = outputStream; }
+		Command(InputStreamType inputStream, OutputStreamType outputStream, string commandName);		
 
 		bool isRedirectionSign(string& s) { return s == ">" || s == ">>" || s == "<"; }
 		bool isQuoteArgument(string& s) { return  s.size() >= 2 && s[0] == '\"' && s[s.size() - 1] == '\"'; }

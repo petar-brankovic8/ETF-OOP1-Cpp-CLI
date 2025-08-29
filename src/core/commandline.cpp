@@ -5,27 +5,35 @@
 #include "../commands/command.hpp"
 #include "../commands/iscommand.hpp"
 #include "../commands/oscommand.hpp"
+#include "../commands/batch.hpp"
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <istream>
 
 using namespace std;
 using namespace commands;
 
-CommandLine::CommandLine(string lineString, Translator* translator) : myTranslator_(translator) {
+CommandLine::CommandLine(string lineString, Translator* translator, istream* inputSource) : myTranslator_(translator) {
 	vector<string> commandStrings = myTranslator_->parsePipelines(lineString);
 
 	for (auto commandString : commandStrings) {
 		Command* newCommand = myTranslator_->createCommand(commandString);
+
+		if (newCommand && newCommand->getInputStream() == InputStreamType::Default)
+			dynamic_cast<InputStreamCommand*>(newCommand)->setInputSource(inputSource);
+		if (newCommand && newCommand->getCommandName() == "batch")
+			dynamic_cast<Batch*>(newCommand)->setTranslator(myTranslator_);
+
 		commands_.push_back(newCommand);
 	}
 
 	this->checkSemantics();
 }
 
-void CommandLine::execute() {
+string CommandLine::execute() {
 	if (commands_[0] == nullptr) 
-		return;
+		return "";
 
 	//Execution
 	string pipeline;
@@ -48,6 +56,11 @@ void CommandLine::execute() {
 		outputFilename = dynamic_cast<OutputStreamCommand*>(lastCommand)->getOutputFilename();
 
 	write(pipeline, myOutputStream, outputFilename);
+
+	string result = "";
+	if (myOutputStream == OutputStreamType::Default)
+		result = pipeline;
+	return result;
 }
 
 void CommandLine::checkSemantics() const {
@@ -60,6 +73,7 @@ void CommandLine::checkSemantics() const {
 				throw NoInputStreamException(commands_[i]->getCommandName());
 			if (commands_[i]->getInputStream() != InputStreamType::Default)
 				throw TooManyInputStreamDefinitionsException(commands_[i]->getCommandName());
+			commands_[i]->setInputStream(InputStreamType::Pipeline);
 		}
 		if (i < commands_.size() - 1) {
 			if (commands_[i]->getOutputStream() == OutputStreamType::NoOutputStream)
@@ -75,8 +89,7 @@ void CommandLine::write(std::string text, OutputStreamType outputStream, std::st
 	case OutputStreamType::NoOutputStream:
 		return;
 	case OutputStreamType::Default:
-		cout << text << '\n';
-		break;
+		return;
 	case OutputStreamType::TxtFileOverwrite: {
 		ofstream outFile(outputFilename);
 		if (!outFile)

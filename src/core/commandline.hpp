@@ -4,12 +4,15 @@
 #include "../commands/command.hpp"
 #include <string>
 #include <vector>
+#include <istream>
+
+using std::string;
 
 class CommandLine {
 public:
-	CommandLine(std::string lineString, Translator* translator);
+	CommandLine(string lineString, Translator* translator, istream* inputSource);
 
-	virtual void execute();
+	virtual string execute();
 
 protected:
 	virtual void checkSemantics() const;

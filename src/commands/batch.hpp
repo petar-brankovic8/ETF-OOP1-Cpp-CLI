@@ -3,6 +3,7 @@
 #include "command.hpp"
 #include "iscommand.hpp"
 #include "oscommand.hpp"
+#include "../utils/translator.hpp"
 #include <string>
 #include <vector>
 
@@ -21,10 +22,15 @@ namespace commands {
 
 		void addParameters(vector<string> tokens) override;
 
+		void setTranslator(Translator* translator) { myTranslator_ = translator; }
+
 	protected:
 		virtual void addFirstParameter(vector<string>& tokens, int& currentToken);
 
 		virtual void addSecondParameter(vector<string>& tokens, int& currentToken);
+
+	private:
+		Translator* myTranslator_ = nullptr;
 	};
 
 }

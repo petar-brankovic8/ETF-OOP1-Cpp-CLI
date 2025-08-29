@@ -8,7 +8,8 @@ enum class InputStreamType {
 	NoInputStream,
 	Default,
 	QuoteArgument,
-	TxtFile
+	TxtFile,
+	Pipeline
 };
 
 enum class OutputStreamType {
