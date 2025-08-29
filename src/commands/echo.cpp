@@ -3,76 +3,83 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <fstream>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
-    Echo::Echo() : Command(InputStreamType::Default, OutputStreamType::Default, "echo") {}
+	Echo::Echo() : Command(InputStreamType::Default, OutputStreamType::Default, "echo") {}
 
-    Command* Echo::commandCreate()
-    {
-        return new Echo();
-    }
+	Command* Echo::commandCreate()
+	{
+		return new Echo();
+	}
 
-    string Echo::run() {
-        return string();
-    }
+	string Echo::run() {
+		if (getInputStream() == InputStreamType::QuoteArgument || getInputStream() == InputStreamType::Pipeline)
+			return getInput();
 
-    void Echo::addParameters(vector<string> tokens) {
-        if (tokens.size() == 1)
-            return;
-        int currentToken = 1;
-        addFirstParameter(tokens, currentToken);
+		if (getInputStream() == InputStreamType::Default)
+			return inputDefault();
 
-        if (currentToken >= tokens.size())
-            return;
-        addSecondParameter(tokens, currentToken);
+		if (getInputStream() == InputStreamType::TxtFile)
+			return inputTxt();
+	}
 
-        if (currentToken < tokens.size())
-            throw TooManyArgumentsException(getCommandName());
-    }
+	void Echo::addParameters(vector<string> tokens) {
+		if (tokens.size() == 1)
+			return;
+		int currentToken = 1;
+		addFirstParameter(tokens, currentToken);
 
-    void Echo::addFirstParameter(vector<string>& tokens, int& currentToken) {
-        if (isQuoteArgument(tokens[currentToken])) {
-            setInputStream(InputStreamType::QuoteArgument);
-            setInput(tokens[currentToken].substr(1, tokens[currentToken].size() - 2));
-            currentToken++;
-            return;
-        }
-        else if (isRedirectionSign(tokens[currentToken])) {
-            if (currentToken + 1 >= tokens.size())
-                throw MissingRedirectionArgumentException(getCommandName());
-            if (isInputStreamSign(tokens[currentToken])) {
-                inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
-            }
-            if (isOutputStreamSign(tokens[currentToken])) {
-                outputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
-            }
-            currentToken += 2;
-            return;
-        }
-        else  {
-            setInputStream(InputStreamType::TxtFile);
-            setInputFilename(tokens[currentToken]);
-            currentToken++;
-            return;
-        }
-    }
+		if (currentToken >= tokens.size())
+			return;
+		addSecondParameter(tokens, currentToken);
 
-    void Echo::addSecondParameter(vector<string>& tokens, int& currentToken) {
-        if (isRedirectionSign(tokens[currentToken])) {
-            if (currentToken + 1 >= tokens.size())
-                throw MissingRedirectionArgumentException(getCommandName());
-            if (isInputStreamSign(tokens[currentToken])) {
-                inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
-            }
-            if (isOutputStreamSign(tokens[currentToken])) {
-                outputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
-            }
-            currentToken += 2;
-        }
-        else throw TooManyArgumentsException(getCommandName());
-    }
+		if (currentToken < tokens.size())
+			throw TooManyArgumentsException(getCommandName());
+	}
+
+	void Echo::addFirstParameter(vector<string>& tokens, int& currentToken) {
+		if (isQuoteArgument(tokens[currentToken])) {
+			setInputStream(InputStreamType::QuoteArgument);
+			setInput(tokens[currentToken].substr(1, tokens[currentToken].size() - 2));
+			currentToken++;
+			return;
+		}
+		else if (isRedirectionSign(tokens[currentToken])) {
+			if (currentToken + 1 >= tokens.size())
+				throw MissingRedirectionArgumentException(getCommandName());
+			if (isInputStreamSign(tokens[currentToken])) {
+				inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+			}
+			if (isOutputStreamSign(tokens[currentToken])) {
+				outputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+			}
+			currentToken += 2;
+			return;
+		}
+		else {
+			setInputStream(InputStreamType::TxtFile);
+			setInputFilename(tokens[currentToken]);
+			currentToken++;
+			return;
+		}
+	}
+
+	void Echo::addSecondParameter(vector<string>& tokens, int& currentToken) {
+		if (isRedirectionSign(tokens[currentToken])) {
+			if (currentToken + 1 >= tokens.size())
+				throw MissingRedirectionArgumentException(getCommandName());
+			if (isInputStreamSign(tokens[currentToken])) {
+				inputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+			}
+			if (isOutputStreamSign(tokens[currentToken])) {
+				outputStreamRedirection(tokens[currentToken], tokens[currentToken + 1]);
+			}
+			currentToken += 2;
+		}
+		else throw TooManyArgumentsException(getCommandName());
+	}
 
 }

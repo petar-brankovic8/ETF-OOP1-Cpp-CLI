@@ -13,12 +13,11 @@ namespace commands {
 	public:
 		void setInput(string input) { input_ = input; }
 		void setInputSource(istream* inputSouce) { inputSource_ = inputSouce; }
+		void setInputFilename(string inputFilename) { inputFilename_ = inputFilename; }
 
 	protected:
 		InputStreamCommand() : Command("inputStreamCommand") {}
-		
-		void setInputFilename(string inputFilename) { inputFilename_ = inputFilename; }
-
+	
 		istream* getInputSource() { return inputSource_; }
 		string getInputFilename() { return inputFilename_; }
 		string getInput() { return input_; }
@@ -26,6 +25,10 @@ namespace commands {
 		virtual bool isInputStreamSign(string sign) { return sign == "<"; }
 
 		virtual void inputStreamRedirection(string redirectionSign, string filename);
+
+		virtual string inputDefault();
+
+		virtual string inputTxt();
 
 	private:
 		istream* inputSource_ = nullptr;
