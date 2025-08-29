@@ -3,9 +3,10 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <fstream>
+#include <filesystem>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
     Touch::Touch() : Command("touch") {}
@@ -15,7 +16,12 @@ namespace commands {
     }
 
     string Touch::run() {
-        return string();
+        if (filesystem::exists(filename_))
+            throw FileAlreadyExistsException(getCommandName());
+        ofstream outfile(filename_);
+        if (!outfile.is_open())
+            throw FileNotCreatedException(getCommandName());
+        return "";
     }
 
     void Touch::addParameters(vector<string> tokens) {

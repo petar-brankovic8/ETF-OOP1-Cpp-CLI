@@ -69,3 +69,11 @@ struct ExpectedCommandAroundPipelineException : public runtime_error {
 struct FileNotOpenedException : public runtime_error {
 	using runtime_error::runtime_error;
 };
+
+struct FileAlreadyExistsException : public runtime_error {
+	using runtime_error::runtime_error;
+};
+
+struct FileNotCreatedException : public runtime_error {
+	using runtime_error::runtime_error;
+};

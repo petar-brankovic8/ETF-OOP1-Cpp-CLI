@@ -70,7 +70,13 @@ void Controller::run() {
 			cerr << "Expected command around pipeline '|'" << '\n';
 		}
 		catch (const FileNotOpenedException& e) {
-			cerr << "Error file not opened: " << e.what() << '\n';
+			cerr << "Error file not opened, command: " << e.what() << '\n';
+		}
+		catch (const FileAlreadyExistsException& e) {
+			cerr << "Error file already exists, command: " << e.what() << '\n';
+		}
+		catch (const FileNotCreatedException& e) {
+			cerr << "Error file not created, command: " << e.what() << '\n';
 		}
 	}
 }
