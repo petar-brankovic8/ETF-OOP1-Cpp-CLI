@@ -3,9 +3,10 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <filesystem>
+#include <fstream>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
     Truncate::Truncate() : Command("truncate") {}
@@ -16,7 +17,11 @@ namespace commands {
     }
 
     string Truncate::run() {
-        return string();
+        if (!filesystem::exists(filename_))
+            throw FileNotFoundException(getCommandName());
+        if (ofstream ofs(filename_); !ofs)
+            throw FileNotOpenedException(getCommandName());
+        return "";
     }
 
     void Truncate::addParameters(vector<string> tokens) {

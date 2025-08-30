@@ -65,7 +65,7 @@ string CommandLine::execute() {
 	string result = "";
 	if (myOutputStream == OutputStreamType::Default)
 		result = pipeline;
-	return result + '\n';
+	return result;
 }
 
 void CommandLine::checkSemantics() const {

@@ -77,3 +77,7 @@ struct FileAlreadyExistsException : public runtime_error {
 struct FileNotCreatedException : public runtime_error {
 	using runtime_error::runtime_error;
 };
+
+struct FileNotFoundException : public runtime_error {
+	using runtime_error::runtime_error;
+};

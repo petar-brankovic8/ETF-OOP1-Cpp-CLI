@@ -45,7 +45,7 @@ namespace commands {
 					result += commandLine.execute();
 				}
 				catch (runtime_error& e) {
-					result += e.what();
+					result += myController_->exceptionHandler(e);
 				}
 				if (eof) {
 					getInputSource()->clear();
@@ -78,7 +78,7 @@ namespace commands {
 					result += commandLine.execute();
 				}
 				catch (runtime_error& e) {
-					result += e.what();
+					result += myController_->exceptionHandler(e);
 				}
 			}
 		}

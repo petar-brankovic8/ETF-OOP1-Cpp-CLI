@@ -3,9 +3,9 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <filesystem>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
     Rm::Rm() : Command("rm") {}
@@ -16,7 +16,9 @@ namespace commands {
     }
 
     string Rm::run() {
-        return string();
+        if (!filesystem::remove(filename_))
+            throw FileNotFoundException(getCommandName());
+        return "";
     }
 
     void Rm::addParameters(vector<string> tokens) {

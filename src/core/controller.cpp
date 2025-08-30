@@ -22,61 +22,71 @@ void Controller::run() {
 		//Construct and execute command line
 		try {
 			CommandLine commandLine = CommandLine(line, myTranslator_, &cin, this);
-			cout << commandLine.execute();
+			cout << commandLine.execute() << '\n';
 		}
-		catch (const UnkownCommandException& e) {
-			cerr << "Unkown command: " << e.what() << '\n';
-		}
-		catch (const MissingRedirectionArgumentException& e) {
-			cerr << "Missing redirection argument in command: " << e.what() << '\n';
-		}
-		catch (const TooManyArgumentsException& e) {
-			cerr << "Too many arguments in command: " << e.what() << '\n';
-		}
-		catch (const TooManyInputStreamDefinitionsException& e) {
-			cerr << "Too many input streams defined in command: " << e.what() << '\n';
-		}
-		catch (const TooManyOutputStreamDefinitionsException& e) {
-			cerr << "Too many output streams defined in command: " << e.what() << '\n';
-		}
-		catch (const ExpectedArgumentException& e) {
-			cerr << "Expected argument in command: " << e.what() << '\n';
-		}
-		catch (const ExpectedQuotedArgumentException& e) {
-			cerr << "Expected quoted argument in command: " << e.what() << '\n';
-		}
-		catch (const ExpectedFilenameArgumentException& e) {
-			cerr << "Expected filename argument in command: " << e.what() << '\n';
-		}
-		catch (const ExpectedOptionArgumentException& e) {
-			cerr << "Exptect option argument in command: " << e.what() << '\n';
-		}
-		catch (const InvalidOptionException& e) {
-			cerr << "Invalid option for command: " << e.what() << '\n';
-		}
-		catch (const ExpectedArgumentBeforeRedirectionException& e) {
-			cerr << "Expected argument before redirection in command: " << e.what() << '\n';
-		}
-		catch (const RedirectionNotAtEndException& e) {
-			cerr << "Redirection not at the end of command: " << e.what() << '\n';
-		}
-		catch (const NoInputStreamException& e) {
-			cerr << "This command cannot have input stream: " << e.what() << '\n';
-		}
-		catch (const NoOutputStreamException& e) {
-			cerr << "This command cannot have output stream: " << e.what() << '\n';
-		}
-		catch (const ExpectedCommandAroundPipelineException& e) {
-			cerr << "Expected command around pipeline '|'" << '\n';
-		}
-		catch (const FileNotOpenedException& e) {
-			cerr << "Error file not opened, command: " << e.what() << '\n';
-		}
-		catch (const FileAlreadyExistsException& e) {
-			cerr << "Error file already exists, command: " << e.what() << '\n';
-		}
-		catch (const FileNotCreatedException& e) {
-			cerr << "Error file not created, command: " << e.what() << '\n';
+		catch (runtime_error& e) {
+			cerr << exceptionHandler(e) << '\n';
 		}
 	}
+}
+
+string Controller::exceptionHandler(runtime_error& e) {
+	if (dynamic_cast<UnkownCommandException*>(&e)) {
+		return string("Unkown command: ") + e.what();
+	}
+	if (dynamic_cast<MissingRedirectionArgumentException*>(&e)) {
+		return string("Missing redirection argument in command: ") + e.what();
+	}
+	if (dynamic_cast<TooManyArgumentsException*>(&e)) {
+		return string("Too many arguments in command: ") + e.what();
+	}
+	if (dynamic_cast<TooManyInputStreamDefinitionsException*>(&e)) {
+		return string("Too many input streams defined in command: ") + e.what();
+	}
+	if (dynamic_cast<TooManyOutputStreamDefinitionsException*>(&e)) {
+		return string("Too many output streams defined in command: ") + e.what();
+	}
+	if (dynamic_cast<ExpectedArgumentException*>(&e)) {
+		return string("Expected argument in command: ") + e.what();
+	}
+	if (dynamic_cast<ExpectedQuotedArgumentException*>(&e)) {
+		return string("Expected quoted argument in command: ") + e.what();
+	}
+	if (dynamic_cast<ExpectedFilenameArgumentException*>(&e)) {
+		return string("Expected filename argument in command: ") + e.what();
+	}
+	if (dynamic_cast<ExpectedOptionArgumentException*>(&e)) {
+		return string("Exptect option argument in command: ") + e.what();
+	}
+	if (dynamic_cast<InvalidOptionException*>(&e)) {
+		return string("Invalid option for command: ") + e.what();
+	}
+	if (dynamic_cast<ExpectedArgumentBeforeRedirectionException*>(&e)) {
+		return string("Expected argument before redirection in command: ") + e.what();
+	}
+	if (dynamic_cast<RedirectionNotAtEndException*>(&e)) {
+		return string("Redirection not at the end of command: ") + e.what();
+	}
+	if (dynamic_cast<NoInputStreamException*>(&e)) {
+		return string("This command cannot have input stream: ") + e.what();
+	}
+	if (dynamic_cast<NoOutputStreamException*>(&e)) {
+		return string("This command cannot have output stream: ") + e.what();
+	}
+	if (dynamic_cast<ExpectedCommandAroundPipelineException*>(&e)) {
+		return string("Expected command around pipeline '|'");
+	}
+	if (dynamic_cast<FileNotOpenedException*>(&e)) {
+		return string("Error file not opened, command: ") + e.what();
+	}
+	if (dynamic_cast<FileAlreadyExistsException*>(&e)) {
+		return string("Error file already exists, command: ") + e.what();
+	}
+	if (dynamic_cast<FileNotCreatedException*>(&e)) {
+		return string("Error file not created, command: ") + e.what();
+	}
+	if (dynamic_cast<FileNotFoundException*>(&e)) {
+		return string("File not found, command: ") + e.what();
+	}
+	return "Unknown exception";
 }
