@@ -8,6 +8,18 @@
 using namespace std;
 
 namespace commands {
+	string InputStreamCommand::loadInput()
+	{
+		if (getInputStream() == InputStreamType::QuoteArgument || getInputStream() == InputStreamType::Pipeline)
+			return getInput();
+
+		if (getInputStream() == InputStreamType::Default)
+			return inputDefault();
+
+		if (getInputStream() == InputStreamType::TxtFile)
+			return inputTxt();
+		return "";
+	}
 
 	void InputStreamCommand::inputStreamRedirection(string redirectionSign, string filename) {
 		if (getInputStream() != InputStreamType::Default)
@@ -32,9 +44,10 @@ namespace commands {
 		ifstream ifs(getInputFilename());
 		if (!ifs)
 			throw FileNotOpenedException(getCommandName());
-		string result = "", line;
-		while (getline(ifs, line))
-			result += line;
+		string result = "";
+		char c;
+		while (ifs.get(c))
+			result += c;
 		return result;
 	}
 

@@ -17,6 +17,8 @@ namespace commands {
 
 	protected:
 		InputStreamCommand() : Command("inputStreamCommand") {}
+
+		virtual string loadInput();
 	
 		istream* getInputSource() { return inputSource_; }
 		string getInputFilename() { return inputFilename_; }

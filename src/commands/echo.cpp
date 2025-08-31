@@ -16,14 +16,7 @@ namespace commands {
 	}
 
 	string Echo::run() {
-		if (getInputStream() == InputStreamType::QuoteArgument || getInputStream() == InputStreamType::Pipeline)
-			return getInput();
-
-		if (getInputStream() == InputStreamType::Default)
-			return inputDefault();
-
-		if (getInputStream() == InputStreamType::TxtFile)
-			return inputTxt();
+		return loadInput();
 	}
 
 	void Echo::addParameters(vector<string> tokens) {
