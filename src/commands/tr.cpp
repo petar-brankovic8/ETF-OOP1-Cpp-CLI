@@ -16,7 +16,17 @@ namespace commands {
     }
 
     string Tr::run() {
-        return string();
+        string input = loadInput();
+
+        if (what_.empty())
+            throw InvalidArgumentException(getCommandName());
+        size_t pos = 0;
+        while ((pos = input.find(what_, pos)) != string::npos) {
+            input.replace(pos, what_.size(), with_);
+            pos += with_.size();
+        }
+
+        return input;
     }
 
     void Tr::addParameters(vector<string> tokens) {

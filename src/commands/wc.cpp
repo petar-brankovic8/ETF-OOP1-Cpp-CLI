@@ -3,9 +3,9 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <sstream>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
     Wc::Wc() : Command(InputStreamType::Default, OutputStreamType::Default, "wc") {}
@@ -16,7 +16,13 @@ namespace commands {
     }
 
     string Wc::run() {
-        return string();
+        string input = loadInput();
+
+        int result = -1;
+        if (option_ == Option::Word) result = countWords(input);
+        if (option_ == Option::Char) result = countChars(input);
+
+        return to_string(result);
     }
 
     void Wc::addParameters(vector<string> tokens) {
@@ -43,7 +49,7 @@ namespace commands {
         if (tokens[currentToken] == "-w")
             setOption(Option::Word);
         else if (tokens[currentToken] == "-c")
-            setOption(Option::Word);
+            setOption(Option::Char);
         else
             throw InvalidOptionException(getCommandName());
         currentToken++;
@@ -89,6 +95,19 @@ namespace commands {
             currentToken += 2;
         }
         else throw TooManyArgumentsException(getCommandName());
+    }
+
+    int Wc::countWords(const string& s) {
+        stringstream ss(s);
+        int wordCount = 0;
+        string temp;
+        while (ss >> temp)
+            wordCount++;
+        return wordCount;
+    }
+
+    int Wc::countChars(const string& s) {
+        return s.size();
     }
 
 }

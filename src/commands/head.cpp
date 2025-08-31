@@ -3,9 +3,9 @@
 #include "../utils/exceptions.hpp"
 #include <string>
 #include <vector>
+#include <sstream>
 
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace commands {
     Head::Head() : Command(InputStreamType::Default, OutputStreamType::Default, "head") {}
@@ -16,7 +16,18 @@ namespace commands {
     }
 
     string Head::run() {
-        return string();
+        string input = loadInput();
+        stringstream ss(input);
+        string result = "", line;
+
+        int ncount = ncount_;
+
+        while (ncount-- && getline(ss, line))
+            result += line + '\n';
+        if (!result.empty())
+            result.pop_back();
+
+        return result;
     }
 
     void Head::addParameters(vector<string> tokens) {

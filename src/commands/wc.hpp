@@ -32,6 +32,10 @@ namespace commands {
 
 		virtual void addThirdParameter(vector<string>& tokens, int& currentToken);
 
+		virtual int countWords(const string& s);
+
+		virtual int countChars(const string& s);
+
 	private:
 		Option option_ = Option::Word;
 	};
