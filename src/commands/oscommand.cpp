@@ -11,7 +11,7 @@ namespace commands {
 		if (getOutputStream() != OutputStreamType::Default)
 			throw TooManyOutputStreamDefinitionsException(getCommandName());
 		if (sign == ">") setOutputStream(OutputStreamType::TxtFileOverwrite);
-		else if (sign == ">>") setOutputStream(OutputStreamType::TxtFileOverwrite);
+		else if (sign == ">>") setOutputStream(OutputStreamType::TxtFileAppend);
 		setOutputFilename(outputFilename);
 	}
 

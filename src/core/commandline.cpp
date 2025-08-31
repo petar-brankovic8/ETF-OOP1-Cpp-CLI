@@ -90,6 +90,7 @@ void CommandLine::checkSemantics() const {
 }
 
 void CommandLine::write(std::string text, OutputStreamType outputStream, std::string outputFilename) {
+	
 	switch (outputStream) {
 	case OutputStreamType::NoOutputStream:
 		return;

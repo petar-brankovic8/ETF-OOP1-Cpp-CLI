@@ -88,5 +88,8 @@ string Controller::exceptionHandler(runtime_error& e) {
 	if (dynamic_cast<FileNotFoundException*>(&e)) {
 		return string("File not found, command: ") + e.what();
 	}
+	if (dynamic_cast<InvalidArgumentException*>(&e)) {
+		return string("Invalid argument in command: ") + e.what();
+	}
 	return "Unknown exception";
 }

@@ -1,9 +1,8 @@
 #include "command.hpp"
-#include "command.hpp"
-#include "command.hpp"
-#include "command.hpp"
-#include "command.hpp"
 #include "..\utils\constants.hpp"
+#include <string>
+
+using namespace std;
 
 namespace commands {
 
